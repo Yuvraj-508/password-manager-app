@@ -1,0 +1,16 @@
+.inp{
+    border: 1px rgba(148, 147, 147, 0.603) solid;
+    box-shadow: 0 0 5px rgb(176, 176, 176);
+    border-radius: 8px;
+}
+.inp:focus {
+    outline: 1px solid #46dfdf;
+  
+    box-shadow: none;
+  }
+
+::placeholder{
+    color: rgb(195, 195, 195);
+    font-size : 14px;
+}  
+  
