@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "http://localhost:3000", // your backend URL
+  baseURL: "https://password-manager-app-qeo4.onrender.com", // your backend URL
 });
 
 // Attach token before every request
