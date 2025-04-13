@@ -51,10 +51,10 @@ function Form() {
     <div className="">
       <div className={`container ${isActive ? "active" : ""}`}>
         {/* <!-- login form --> */}
-        <div class="form-box login">
+        <div className="form-box login">
           <form onSubmit={handleLogin}>
             <h1>Login</h1>
-            <div class="input-box">
+            <div className="input-box">
               <input
                 type="text"
                 placeholder="Username"

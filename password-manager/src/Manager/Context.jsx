@@ -1,25 +1,32 @@
 import React, { useState, useEffect, createContext } from "react";
 import eyeOpen from "../assets/view.png";
 import eyeCross from "../assets/hide.png";
+import { useNavigate } from "react-router-dom";
 
 export const DataContext = createContext();
 
+
 const DataProvider = (props) => {
+  
+  const navigate = useNavigate();
+
   const [form, setForm] = useState({ url: "", username: "", password: "" });
   const [passwordArray, setPasswordArray] = useState([]);
   const [show, setShow] = useState(false); // for form field
   const [visiblePasswords, setVisiblePasswords] = useState({});
   const[user,setUser] = useState(null);
   
+ 
   // for table/list fields
 
   const handleEye = () => {
     setShow(!show);
   };
+
   const handleLogout = () => {
     localStorage.removeItem("token"); // clear JWT
     setUser(null); // clear user from context
-    navigate("/login"); // redirect to login page
+    navigate("/"); // redirect to login page
   };
 
   const togglePasswordVisibility = (index) => {
