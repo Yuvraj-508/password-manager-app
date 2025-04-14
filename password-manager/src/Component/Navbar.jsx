@@ -1,4 +1,4 @@
-import React, { useState, useContext,useEffect } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Link, NavLink } from "react-router";
 import Menu from "../assets/menu.png";
 import Next from "../assets/next.png";
@@ -6,8 +6,8 @@ import User from "../assets/user.png";
 import { DataContext } from "../Manager/Context";
 import { useNavigate } from "react-router-dom";
 
- function Navbar() {
-  const { user,setUser } = useContext(DataContext);
+function Navbar() {
+  const { user, setUser } = useContext(DataContext);
   const [visible, setVisible] = useState(false);
   const navigate = useNavigate();
 
@@ -63,14 +63,12 @@ import { useNavigate } from "react-router-dom";
               {user?.name?.slice(0, 2).toUpperCase()}
             </p>
             <div className="group-hover:block hidden absolute right-0 pt-3">
-              <Link to='/'>
-                <button
-                  className="text-lg bg-slate-200 hover:bg-slate-100 px-5 py-2 text-gray-500 rounded hover:text-black cursor-pointer"
-                  onClick={handleLogout}
-                >
-                  Logout
-                </button>
-              </Link>
+              <button
+                className="text-lg bg-slate-200 hover:bg-slate-100 px-5 py-2 text-gray-500 rounded hover:text-black cursor-pointer"
+                onClick={handleLogout}
+              >
+                Logout
+              </button>
             </div>
           </div>
         )}
@@ -158,11 +156,16 @@ import { useNavigate } from "react-router-dom";
 
           {user && (
             <div className="flex gap-25 absolute bottom-4 font-semibold items-center text-lg w-full justify-center text-white border-t border-gray-200 pt-3 md:px-0 ">
-              <Link onClick={() => setVisible(false)} >
-                <button className=" px-3 py-2  rounded text-[#009b8f] cursor-pointer tracking-wider" onClick={handleLogout}>
-                  Logout
-                </button>
-              </Link>
+              <button
+                onClick={() => {
+                  setVisible(false);
+                  handleLogout();
+                }}
+                className=" px-3 py-2  rounded text-[#009b8f] cursor-pointer tracking-wider"
+              >
+                Logout
+              </button>
+
               <Link onClick={() => setVisible(false)} to="/dashboard">
                 <button className="bg-[#009b8f] w-35  py-1.5 rounded-xl cursor-pointer tracking-wider">
                   Dashboard

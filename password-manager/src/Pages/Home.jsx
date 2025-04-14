@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react'
 import Hero from '../Component/Hero'
 import { useNavigate } from "react-router-dom";
-import API from '../../api/Api';
+import API from '../api/Api';
 import { DataContext } from '../Manager/Context';
 
 function Home() {

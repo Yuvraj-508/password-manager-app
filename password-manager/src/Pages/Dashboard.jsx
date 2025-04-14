@@ -1,7 +1,7 @@
 import React,{useState,useEffect,useContext} from 'react'
 import Input from '../Component/Input'
 import Data from '../Component/Data'
-import API from "../../api/Api"; // Axios instance with base URL & token logic
+import API from "../api/Api"; // Axios instance with base URL & token logic
 import { useNavigate } from "react-router-dom";
 import { DataContext } from '../Manager/Context';
 

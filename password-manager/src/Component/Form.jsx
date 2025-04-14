@@ -3,10 +3,10 @@ import { Link } from "react-router";
 import "./Form.css";
 import goggle from "../assets/google.png";
 import facebook from "../assets/facebook.png";
-import API from "../../api/Api"; // Axios instance with base URL & token logic
+import API from "../api/Api"; // Axios instance with base URL & token logic
 import { useNavigate } from "react-router-dom";
 import { DataContext } from "../Manager/Context";
-import { loginUser,registarUser } from "../../api/apihandler";
+import { loginUser,registarUser } from "../api/apihandler";
 
 function Form() {
   const { show, handleEye, eyeOpen, eyeCross,setUser} = useContext(DataContext);
@@ -91,9 +91,9 @@ function Form() {
               <Link className=" shadow border border-gray-200 px-10 py-2">
                 <img src={goggle} alt="" className="w-10" />
               </Link>
-              <Link className=" shadow border border-gray-200 px-10 py-2">
+              <button className=" shadow border border-gray-200 px-10 py-2">
                 <img src={facebook} alt="" className="w-10" />
-              </Link>
+              </button>
             </div>
           </form>
         </div>
@@ -143,9 +143,9 @@ function Form() {
             </button>
             <p>or Register with social platforms</p>
             <div class="social-icons flex justify-center items-center gap-10">
-              <Link className=" shadow border border-gray-200 px-10 py-2">
-                <img src={goggle} alt="" className="w-10" />
-              </Link>
+              <button type="button" className=" shadow border border-gray-200 px-10 py-2">
+                <img src={goggle} alt="" className="w-10 cursor-pointer"   />
+              </button>
               <Link className=" shadow border border-gray-200 px-10 py-2">
                 <img src={facebook} alt="" className="w-10" />
               </Link>

@@ -2,6 +2,7 @@ import React, { useState, useEffect, createContext } from "react";
 import eyeOpen from "../assets/view.png";
 import eyeCross from "../assets/hide.png";
 import { useNavigate } from "react-router-dom";
+import API from "../api/Api"; // adjust path
 
 export const DataContext = createContext();
 
@@ -15,7 +16,9 @@ const DataProvider = (props) => {
   const [show, setShow] = useState(false); // for form field
   const [visiblePasswords, setVisiblePasswords] = useState({});
   const[user,setUser] = useState(null);
+
   
+   
  
   // for table/list fields
 
@@ -62,7 +65,7 @@ const DataProvider = (props) => {
     togglePasswordVisibility,
     setUser,
     user,
-    handleLogout
+    handleLogout,
   };
 
   return (

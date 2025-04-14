@@ -23,6 +23,7 @@ const userSchema = new Schema({
       required:true,
       },
 
+
 }, { timestamps: true });
 
 const User = model("user", userSchema); // ✅ First argument is the model name
