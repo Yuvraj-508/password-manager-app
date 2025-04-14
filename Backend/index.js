@@ -45,8 +45,9 @@ app.post("/login", async (req, res) => {
 
 app.post("/register", async (req, res) => {
   const { username, email, password } = req.body;
-  const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
-  User.create({ username, email, password ,ip})
+  const forwarded = req.headers['x-forwarded-for'];
+  const ip = forwarded ? forwarded.split(',')[0].trim() : req.socket.remoteAddress;
+    User.create({ username, email, password ,ip})
     .then((user) => {
       const token = generateToken(user);
       res.json({ user, token });
