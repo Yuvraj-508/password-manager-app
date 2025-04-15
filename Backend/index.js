@@ -9,6 +9,7 @@ const admin = require("./service/firebaseadmin");
 const { generateToken } = require("./service/auth");
 const { checkAuth } = require("./middleware/auth");
 const passwordEntry = require("./models/data");
+const argon2 = require('argon2');
 
 dotenv.config();
 
@@ -35,10 +36,13 @@ app.post("/login", async (req, res) => {
     return res.status(404).json({ message: "User not found" });
   }
 
-  const isMatch = user.password === password; // Optionally: bcrypt compare
-  if (!isMatch) {
-    return res.status(401).json({ message: "Invalid credentials" });
-  }
+  // const isMatch = user.password === password; // Optionally: bcrypt compare
+  // if (!isMatch) {
+  //   return res.status(401).json({ message: "Invalid credentials" });
+  // }
+
+  const isMatch = await argon2.verify(user.password, password);
+  if (!isMatch) return 'Incorrect password';
 
   const token = generateToken(user);
   res.json({ token, user });
