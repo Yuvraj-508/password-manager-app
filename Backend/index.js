@@ -42,7 +42,7 @@ app.post("/login", async (req, res) => {
   // }
 
   const isMatch = await argon2.verify(user.password, password);
-  if (!isMatch) return 'Incorrect password';
+  if (!isMatch) return res.status(404).json({msg:'Incorrect password'});
 
   const token = generateToken(user);
   res.json({ token, user });
