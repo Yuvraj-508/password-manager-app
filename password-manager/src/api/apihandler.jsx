@@ -14,6 +14,26 @@ export const loginUser = async (loginData) => {
      
   };
 
+  export const savePassword = async (entryData) => {
+    const res = await API.post("/passwords", entryData);
+    return res.data;
+  };
+
+  export const getPasswords = async () => {
+    const res = await API.get("/passwords");
+    return res.data;
+  };
+
+  export const updatePassword = async (id, updatedData) => {
+    const res = await API.put(`/passwords/${id}`, updatedData);
+    return res.data;
+  };
+
+  export const deletePassword = async (id) => {
+    const res = await API.delete(`/passwords/${id}`);
+    return res.data;
+  };
+  
 
 
  

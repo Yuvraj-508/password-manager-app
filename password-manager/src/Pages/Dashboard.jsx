@@ -4,11 +4,11 @@ import Data from '../Component/Data'
 import API from "../api/Api"; // Axios instance with base URL & token logic
 import { useNavigate } from "react-router-dom";
 import { DataContext } from '../Manager/Context';
-
+import { getPasswords } from '../api/apihandler';
 
 function Dashboard() {
 
-  const{setUser}=useContext(DataContext)
+  const{setUser,setPasswordArray,PasswordArray}=useContext(DataContext)
 
   const navigate = useNavigate();
   const fetchData = async () => {
@@ -34,7 +34,20 @@ function Dashboard() {
     fetchData();
   }, []);
 
-  
+    useEffect(() => {
+      const fetchPasswords = async () => {
+        try {
+          const data = await getPasswords();
+           setPasswordArray(data);
+          console.log("Your saved password:", data);
+        } catch (err) {
+          console.error("Error fetching:", err);
+        }
+      };
+    
+      fetchPasswords();
+    }, []);
+
   return (
     <div>
      <Input/>

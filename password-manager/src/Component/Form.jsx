@@ -27,7 +27,7 @@ function Form() {
       localStorage.setItem("token", res.token);
       // console.log(res.user);
       // setUser(res.user);
-      navigate("/dashboard");
+      navigate("/");
     } catch (err) {
       alert("Login failed");
       console.error(err);

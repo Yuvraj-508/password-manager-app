@@ -2,6 +2,8 @@ import React, { useContext, useEffect, useRef,useState } from "react";
 import "./Input.css";
 import { DataContext } from "../Manager/Context";
 import { v4 as uuidv4 } from 'uuid';
+import { savePassword,getPasswords } from "../api/apihandler";
+import { updatePassword } from "../api/apihandler";
 
 
 function Input() {
@@ -14,29 +16,25 @@ function Input() {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = () => {
-    // console.log(form);
-    // console.log(passwordArray);
-
-
-    if (form.id) {
-      // Edit mode: update the existing item
-      const updatedArray = passwordArray.map((item) =>
-        item.id === form.id ? form : item
-      );
-      console.log("up",updatedArray);
-      setPasswordArray(updatedArray);
-      localStorage.setItem("passwords", JSON.stringify(updatedArray));
-    } else {
-      // Add mode: new item
-      const newItem = { ...form, id: uuidv4() };
-      const updatedArray = [...passwordArray, newItem];
-      setPasswordArray(updatedArray);
-      localStorage.setItem("passwords", JSON.stringify(updatedArray));
-    }
+  const handleSubmit = async () => {
+    try {
+      if (form._id) {
+        // 🛠️ Update existing password
+        await updatePassword(form._id, form);
+      } else {
+        // ➕ Add new password
+        await savePassword(form);
+      }
   
-    setForm({ url: "", username: "", password: "" });
+      const allPasswords = await getPasswords(); // ✅ Refresh list
+      setPasswordArray(allPasswords);            // 🔄 Update state
+      setForm({ platform: "", username: "", password: "" }); // 🧹 Clear form
+    } catch (error) {
+      console.error("Error saving password:", error);
+    }
   };
+  
+  
   
 
   return (
@@ -51,11 +49,11 @@ function Input() {
       <div className="w-full text-center mt-5">
         <input
           onChange={handleChange}
-          value={form.url}
+          value={form.platform}
           type="text"
           className=" inp w-[90%] md:w-[65%] py-1 sm:py-2  px-3 text-lg"
           placeholder="Enter your Site Name or Other"
-          name="url"
+          name="platform"
         />
       </div>
       <div className="flex flex-col md:flex-row gap-5 md:gap-8 mt-5">

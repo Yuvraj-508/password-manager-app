@@ -3,6 +3,7 @@ import eyeOpen from "../assets/view.png";
 import eyeCross from "../assets/hide.png";
 import { useNavigate } from "react-router-dom";
 import API from "../api/Api"; // adjust path
+import { getPasswords } from "../api/apihandler";
 
 export const DataContext = createContext();
 
@@ -11,7 +12,7 @@ const DataProvider = (props) => {
   
   const navigate = useNavigate();
 
-  const [form, setForm] = useState({ url: "", username: "", password: "" });
+  const [form, setForm] = useState({ platform: "", username: "", password: "" });
   const [passwordArray, setPasswordArray] = useState([]);
   const [show, setShow] = useState(false); // for form field
   const [visiblePasswords, setVisiblePasswords] = useState({});
@@ -38,17 +39,16 @@ const DataProvider = (props) => {
       [index]: !prev[index],
     }));
   };
-
   useEffect(() => {
-    const passwords = localStorage.getItem("passwords");
-    if (passwords) {
-      setPasswordArray(JSON.parse(passwords));
-    }
-  }, []);
+    const fetchPasswords = async () => {
+      const allPasswords = await getPasswords();
+      setPasswordArray(allPasswords);
+    };
+  
+    fetchPasswords();
+  },); // Empty dependency array: runs only once when component mounts
+  
 
-  useEffect(() => {
-    console.log("Password array updated:", passwordArray);
-  }, [passwordArray]);
 
   
 

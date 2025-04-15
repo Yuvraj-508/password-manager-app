@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import { DataContext } from "../Manager/Context";
 import { ToastContainer, toast } from "react-toastify";
+import {deletePassword,getPasswords} from  '../api/apihandler'
 function Data() {
   const {
     setForm,
@@ -19,22 +20,35 @@ function Data() {
     navigator.clipboard.writeText(text);
   };
 
-  const handleDelete = (id) => {
-    console.log("deleting icon", id);
-    setPasswordArray(passwordArray.filter((item) => item.id != id));
-    localStorage.setItem(
-      "passwords",
-      JSON.stringify(passwordArray.filter((item) => item.id != id))
-    );
+  const handleDelete = async (id) => {
+    try {
+      await deletePassword(id);
+      const updatedPasswords = await getPasswords(); // Refresh after delete
+      setPasswordArray(updatedPasswords);
+    } catch (error) {
+      console.error("Error deleting password:", error);
+    }
   };
+  
 
   const handleEdit = (id) => {
-    console.log("edit the icon", id);
-    const password = passwordArray.find((item) => item.id === id);
-    setForm(password);
-    // setPasswordArray(passwordArray.filter((item)=>item.id!=id));
-    // localStorage.setItem("passwords", JSON.stringify(passwordArray.filter((item)=>item.id!=id)));
+    const password = passwordArray.find((item) => item._id === id);
+  
+    if (!password) {
+      console.error("Password entry not found for id:", id);
+      return;
+    }
+   console.log(password)
+    setForm({
+      platform: password.platform,
+      username: password.username,
+      password: password.password,
+      _id: password._id,
+    });
+  
+    
   };
+  
 
   return (
     <div className="mt-20 shadow px-2 py-2">
@@ -69,7 +83,7 @@ function Data() {
                   <td className="py-1 text-center">{index + 1}</td>
                   <td className="text-center">
                     <div className="max-w-[300px] overflow-x-auto whitespace-nowrap">
-                      {item.url}
+                      {item.platform}
                     </div>
                   </td>
                   <td className="text-center">
@@ -120,14 +134,14 @@ function Data() {
                       trigger="hover"
                       style={{ width: "30px", height: "50px" }}
                       className="mr-2 cursor-pointer"
-                      onClick={() => handleEdit(item.id)}
+                      onClick={() => handleEdit(item._id)}
                     />
                     <lord-icon
                       src="https://cdn.lordicon.com/wpyrrmcq.json"
                       trigger="hover"
                       style={{ width: "30px", height: "50px" }}
                       className=" cursor-pointer"
-                      onClick={() => handleDelete(item.id)}
+                      onClick={() => handleDelete(item._id)}
                     />
                   </td>
                 </tr>
