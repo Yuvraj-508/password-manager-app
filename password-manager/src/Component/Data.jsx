@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import { DataContext } from "../Manager/Context";
 import { ToastContainer, toast } from "react-toastify";
-import {deletePassword,getPasswords} from  '../api/apihandler'
+import { deletePassword, getPasswords } from "../api/apihandler";
 function Data() {
   const {
     setForm,
@@ -29,26 +29,22 @@ function Data() {
       console.error("Error deleting password:", error);
     }
   };
-  
 
   const handleEdit = (id) => {
     const password = passwordArray.find((item) => item._id === id);
-  
+
     if (!password) {
       console.error("Password entry not found for id:", id);
       return;
     }
-   console.log(password)
+    console.log(password);
     setForm({
       platform: password.platform,
       username: password.username,
       password: password.password,
       _id: password._id,
     });
-  
-    
   };
-  
 
   return (
     <div className="mt-20 shadow px-2 py-2">
@@ -58,7 +54,7 @@ function Data() {
 
       {/* ✅ Desktop Table */}
       {passwordArray.length !== 0 && (
-        <div className=" md:block">
+        <div className=" md:block hidden">
           <table className="table-auto w-full rounded-md overflow-hidden">
             <colgroup>
               <col className="w-20" />
@@ -152,53 +148,86 @@ function Data() {
       )}
 
       {/* 📱 Mobile Card Layout */}
-      {/* <div className="md:hidden">
-    {passwordArray.map((item, index) => (
-      <div key={index} className="bg-gray-100 rounded-md p-3 my-2 shadow-sm">
-        {/* <div className="text-sm text-gray-600">{index + 1}</div> */}
-      {/* <div><span className="font-semibold">URL:</span> {item.url}</div>
-        <div className="flex items-center gap-2">
-          <span className="font-semibold">Username:</span>
-          <span>{item.username}</span>
-          <lord-icon
-            src="https://cdn.lordicon.com/iykgtsbt.json"
-            trigger="hover"
-            style={{ width: "20px", height: "20px" }}
-            className="cursor-pointer"
-            onClick={() => copyText(item.username)}
-          />
-        </div>
-        <div className="flex items-center gap-2">
-          <span className="font-semibold">Password:</span>
-          <span>{item.password}</span>
-          <lord-icon
-            src="https://cdn.lordicon.com/iykgtsbt.json"
-            trigger="hover"
-            style={{ width: "20px", height: "20px" }}
-            className="cursor-pointer"
-            onClick={() => copyText(item.password)}
-          />
-          
-        </div>
-        <div className="mt-2 flex gap-3">
-          <lord-icon
-            src="https://cdn.lordicon.com/gwlusjdu.json"
-            trigger="hover"
-            style={{ width: "30px", height: "40px" }}
-            className="cursor-pointer"
-            onClick={() => handleEdit(item.id)}
-          />
-          <lord-icon
-            src="https://cdn.lordicon.com/wpyrrmcq.json"
-            trigger="hover"
-            style={{ width: "30px", height: "40px" }}
-            className="cursor-pointer"
-            onClick={() => handleDelete(item.id)}
-          />
-        </div>
+      <div className="md:hidden flex flex-col gap-3">
+        {passwordArray.map((item, index) => (
+          <div
+            key={index}
+            className="bg-gray-100 rounded-md p-3 my-2 shadow-sm flex flex-col gap-4"
+          >
+            {
+              <div className="text-sm rounded-full bg-red-400 w-fit text-white px-2.5 py-0.5">
+                {index + 1}
+              </div>
+            }
+            <div className="flex items-center gap-2">
+              <span className="font-semibold">URL:</span>
+              <span className="max-w-[180px] overflow-auto scroll-auto">
+                {item.platform}
+              </span>
+              <lord-icon
+                src="https://cdn.lordicon.com/iykgtsbt.json"
+                trigger="hover"
+                style={{ width: "40px", height: "20px" }}
+                className="cursor-pointer"
+                onClick={() => copyText(item.username)}
+              />
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="font-semibold">Username:</span>
+              <span className="max-w-[180px] overflow-auto scroll-auto">
+                {item.username}
+              </span>
+              <lord-icon
+                src="https://cdn.lordicon.com/iykgtsbt.json"
+                trigger="hover"
+                style={{ width: "40px", height: "20px" }}
+                className="cursor-pointer"
+                onClick={() => copyText(item.username)}
+              />
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="font-semibold">Password:</span>
+              <input
+                className="border-none outline-none rounded px-1 text-sm tracking-wide max-w-[110px] "
+                // style={{ width: `${item.password.length + 2}ch` }}
+                type={visiblePasswords[index] ? "text" : "password"}
+                value={item.password}
+                readOnly
+              />
+
+              <img
+                src={visiblePasswords[index] ? eyeOpen : eyeCross}
+                onClick={() => togglePasswordVisibility(index)}
+                alt=""
+                className="w-5 cursor-pointer"
+              />
+              <lord-icon
+                src="https://cdn.lordicon.com/iykgtsbt.json"
+                trigger="hover"
+                style={{ width: "20px", height: "20px" }}
+                className="cursor-pointer"
+                onClick={() => copyText(item.password)}
+              />
+            </div>
+            <div className="mt-2 flex gap-3">
+              <lord-icon
+                src="https://cdn.lordicon.com/gwlusjdu.json"
+                trigger="hover"
+                style={{ width: "30px", height: "40px" }}
+                className="cursor-pointer"
+                onClick={() => handleEdit(item._id)}
+              />
+              <lord-icon
+                src="https://cdn.lordicon.com/wpyrrmcq.json"
+                trigger="hover"
+                style={{ width: "30px", height: "40px" }}
+                className="cursor-pointer"
+                onClick={() => handleDelete(item._id)}
+              />
+            </div>
+          </div>
+        ))}
       </div>
-    ))}
-  </div>  */}
     </div>
   );
 }

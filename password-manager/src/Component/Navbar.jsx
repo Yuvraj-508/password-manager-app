@@ -41,6 +41,27 @@ function Navbar() {
           <p>Contact Us</p>
           <hr className="w-2/4 border-none h-[1.5px] bg-gray-700 hidden" />
         </NavLink>
+        <NavLink to='/tools' className="flex flex-col items-center gap-1">
+          <div className="flex items-center gap-2 group relative text-center justify-center">
+            <p className="cursor-pointer">Tools</p>
+            {/* <div className=" group relative"> */}
+              <lord-icon
+                src="https://cdn.lordicon.com/rmkahxvq.json"
+                trigger="hover"
+                colors="primary:#242424"
+                style={{ width: "20px", height: "30px" }}
+                className="cursor-pointer "
+              >              
+              </lord-icon>
+              <div className=" absolute opacity-0  group-hover:opacity-100  w-[200px] bg-gray-100 text-center top-8 py-2 rounded-xl hover:bg-gray-200">
+                <NavLink to="/tools" className="font-bold hover:text-gray-950">
+                  Password Genrator
+                </NavLink>
+              </div>
+            {/* </div> */}
+          </div>
+          <hr className="w-2/4 border-none h-[1.5px] mr-7 bg-gray-700 hidden" />
+        </NavLink>
       </ul>
       <div className="md:flex items-center gap-1 hidden">
         {user && (
@@ -139,8 +160,15 @@ function Navbar() {
           >
             Contact Us
           </NavLink>
+          <NavLink
+            onClick={() => setVisible(false)}
+            className="py-2 pl-7 border border-[#e5e7eb] cursor-pointer "
+            to="/tools"
+          >
+          Tools
+          </NavLink>
           {!user && (
-            <div className="flex gap-25 absolute bottom-4 font-semibold items-center text-lg w-full justify-center text-white border-t border-gray-200 pt-3 md:px-0 ">
+            <div className="flex gap-20 absolute bottom-4 font-semibold items-center text-lg w-full justify-center text-white border-t border-gray-200 pt-3 md:px-0 ">
               <Link onClick={() => setVisible(false)} to="/login">
                 <button className=" px-3 py-2  rounded text-[#009b8f] cursor-pointer tracking-wider ">
                   Login
@@ -155,7 +183,7 @@ function Navbar() {
           )}
 
           {user && (
-            <div className="flex gap-25 absolute bottom-4 font-semibold items-center text-lg w-full justify-center text-white border-t border-gray-200 pt-3 md:px-0 ">
+            <div className="flex gap-20 absolute bottom-4 font-semibold items-center text-lg w-full justify-center text-white border-t border-gray-200 pt-3 md:px-0 ">
               <button
                 onClick={() => {
                   setVisible(false);
