@@ -21,10 +21,11 @@ async function handleLogin(req, res) {
 
 async function handleRegister(req, res) {
   const { username, email, password } = req.body;
-  const forwarded = req.headers["x-forwarded-for"];
-  const ip = forwarded
-    ? forwarded.split(",")[0].trim()
-    : req.socket.remoteAddress;
+  const forwarded = req.headers['x-forwarded-for'];
+  let ip = forwarded ? forwarded.split(",")[0].trim() : req.socket.remoteAddress;
+  
+  
+  
   User.create({ username, email, password, ip })
     .then((user) => {
       const token = generateToken(user);
