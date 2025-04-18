@@ -6,7 +6,7 @@ function checkAuth(req,res,next){
     if (!authHeader || !authHeader.startsWith("Bearer ")) {
         return res.status(401).json({ message: "Unauthorized: No token" });
       }
-        console.log(authHeader)
+        // console.log(authHeader)
       const token = authHeader.split(" ")[1];
       
   try {

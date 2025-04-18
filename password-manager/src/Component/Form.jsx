@@ -6,7 +6,7 @@ import facebook from "../assets/facebook.png";
 import API from "../api/Api"; // Axios instance with base URL & token logic
 import { useNavigate } from "react-router-dom";
 import { DataContext } from "../Manager/Context";
-import { loginUser,registarUser } from "../api/apihandler";
+import { loginUser,registerUser } from "../api/apihandler";
 
 function Form() {
   const { show, handleEye, eyeOpen, eyeCross,setUser} = useContext(DataContext);
@@ -37,7 +37,7 @@ function Form() {
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      const res = await registarUser(registerData);
+      const res = await registerUser(registerData);
       localStorage.setItem("token", res.token);
       navigate("/dashboard");
     } catch (err) {

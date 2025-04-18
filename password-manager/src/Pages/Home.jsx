@@ -14,14 +14,16 @@ function Home() {
       });
       setUser(res.data.user)
     } catch (err) {
-      console.error("Fetch error:", err);
-    
-      // Safe check for status
+          // Safe check for status
       if (err.response && err.response.status === 401) {
         localStorage.removeItem("token");
-      } else {
+      } else if (err.response.status === 404) {
+        localStorage.removeItem("token");
+      }
+       else {
         console.log("Unexpected error:", err.message);
-      }// or res.data.passwords
+      }// or res.data.
+      // }passwords
   }
 }
   useEffect(()=>{

@@ -39,14 +39,13 @@ const DataProvider = (props) => {
       [index]: !prev[index],
     }));
   };
-  useEffect(() => {
-    const fetchPasswords = async () => {
-      const allPasswords = await getPasswords();
-      setPasswordArray(allPasswords);
-    };
+  // useEffect(() => {
+  //   const fetchPasswords = async () => {
+  //     const allPasswords = await getPasswords();
+  //     setPasswordArray(allPasswords);
+  //   };
   
-    fetchPasswords();
-  },); // Empty dependency array: runs only once when component mounts
+    // Empty dependency array: runs only once when component mounts
   
 
 
