@@ -24,6 +24,13 @@ async function handleRegister(req, res) {
   const forwarded = req.headers['x-forwarded-for'];
   let ip = forwarded ? forwarded.split(",")[0].trim() : req.socket.remoteAddress;
   
+  if (ip === '::1' || ip === '::ffff:127.0.0.1') {
+    ip = '127.0.0.1';
+  }
+  
+  console.log("Client IP:", ip);
+  
+  
   
   
   User.create({ username, email, password, ip })
