@@ -98,9 +98,9 @@ function Data() {
                   </td>
                   <td className="text-center relative pl-2">
                     <div className="flex items-center justify-center gap-1.5">
-                      <div className="max-w-[250px] overflow-x-auto whitespace-nowrap  ">
+                      <div className="max-w-[250px]  whitespace-nowrap  ">
                         <input
-                          className="text-center w-full ml-5 text-sm"
+                          className="text-center w-full ml-5 text-sm overflow-auto scroll-auto"
                           type={visiblePasswords[index] ? "text" : "password"}
                           value={item.password}
                           readOnly
